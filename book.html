@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex"><title>Book</title>
+<style>
+:root{--bg:#F6F4F1;--card:#FDFCFA;--ink:#141416;--mute:#8A8790;--line:#E6E2DD;--acc:#7A2E4D;--ok:#2E6B4F;--bad:#9C3F4B}
+@media(prefers-color-scheme:dark){:root{--bg:#0C0C0E;--card:#151517;--ink:#F4F2EE;--mute:#8B8891;--line:#26252A;--acc:#D98BAA;--ok:#7FC3A0;--bad:#E89AA3}}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,"SF Pro Text",Inter,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:480px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;font-weight:600;letter-spacing:-.8px}.sub{color:var(--mute);margin-top:4px;font-size:14px}
+.lbl{font-size:12px;color:var(--mute);font-weight:500;margin:22px 0 8px}
+.item{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:14px;margin-bottom:8px;font:inherit;cursor:pointer}
+.item.on{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}.item b{font-weight:600}.item small{color:var(--mute);display:block}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600}.mh button{background:none;border:0;color:var(--ink);font-size:22px;padding:4px 12px;cursor:pointer}
+.g{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}.g span{font-size:11px;color:var(--mute);padding-bottom:6px}
+.d{height:40px;border:0;background:none;color:var(--ink);font:inherit;font-variant-numeric:tabular-nums;cursor:pointer;border-radius:11px}
+.d:disabled{color:var(--mute);opacity:.4;text-decoration:line-through;cursor:default}.d.s{background:var(--ink);color:var(--bg);font-weight:600}.d.r{background:color-mix(in srgb,var(--ink) 9%,transparent);border-radius:0}
+input,textarea{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:13px;padding:13px;font:inherit;margin-bottom:10px}
+.btn{width:100%;height:52px;border:0;border-radius:15px;background:var(--ink);color:var(--bg);font:600 15px inherit;cursor:pointer;margin-top:8px}.btn:disabled{opacity:.35}
+.sum{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;color:var(--mute)}.sum b{font-size:24px;color:var(--ink);letter-spacing:-.5px}
+.msg{margin-top:12px;color:var(--bad);font-size:13px}.done{text-align:center;padding-top:60px}.ring{width:84px;height:84px;margin:0 auto 18px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:40px;color:var(--acc)}
+a.btn{display:grid;place-items:center;text-decoration:none}.hp{position:absolute;left:-9999px}
+</style></head><body><main id="app"><div class="sub">…</div></main>
+<script>
+const URL_='https://cnpsenhexwsfrekflqfm.supabase.co',KEY='sb_publishable_PQKgTIY-VHNIYGNPIOz8VQ_69tJZrZw';
+const es=(navigator.language||'en').toLowerCase().startsWith('es');
+const T=es?{pick:'Elige un artículo',dates:'Elige las fechas',you:'Tus datos',name:'Nombre',phone:'Teléfono / WhatsApp',note:'Nota (opcional)',send:'Enviar solicitud',day:'día',days:'días',est:'Estimado',unavail:'Esas fechas ya no están disponibles.',err:'No se pudo enviar. Intenta de nuevo.',rate:'Demasiadas solicitudes. Intenta más tarde.',okT:'Solicitud enviada',okS:'Te contactarán para confirmar. No es una reserva hasta que el negocio la acepte.',wa:'Escribir por WhatsApp',nf:'Página no disponible',per:{per_day:'por día',per_event:'por evento'},free:'libre',busy:'ocupado'}
+:{pick:'Choose an item',dates:'Choose your dates',you:'Your details',name:'Name',phone:'Phone / WhatsApp',note:'Note (optional)',send:'Send request',day:'day',days:'days',est:'Estimate',unavail:'Those dates are no longer available.',err:'Could not send. Please try again.',rate:'Too many requests. Try again later.',okT:'Request sent',okS:'The business will contact you to confirm. This is not a booking until they accept.',wa:'Message on WhatsApp',nf:'Page not available',per:{per_day:'per day',per_event:'per event'},free:'free',busy:'busy'};
+const slug=new URLSearchParams(location.search).get('b')||'';const app=document.getElementById('app');
+const h=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(x==='on')for(const[ev,f]of Object.entries(v))e.addEventListener(ev,f);else if(x==='cls')e.className=v;else if(v!==null)e.setAttribute(x,v)}for(const c of k.flat())e.append(c);return e};
+const rpc=async(fn,body)=>{const r=await fetch(`${URL_}/rest/v1/rpc/${fn}`,{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json().catch(()=>null);return{ok:r.ok,j}};
+const money=(c,cur)=>{try{return new Intl.NumberFormat(undefined,{style:'currency',currency:cur,maximumFractionDigits:c%100?2:0}).format(c/100)}catch{return(c/100)+' '+cur}};
+const iso=(y,m,d)=>`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+let info,item=null,a=null,b=null,vy,vm,sent=false;
+function render(){app.replaceChildren();
+ app.append(h('h1',{},info.name),info.headline?h('div',{cls:'sub'},info.headline):'');
+ app.append(h('div',{cls:'lbl'},T.pick));
+ info.items.forEach(it=>app.append(h('button',{cls:'item'+(item&&item.id===it.id?' on':''),on:{click:()=>{item=it;a=b=null;render()}}},h('span',{},h('b',{},it.name),it.category?h('small',{},it.category):''),h('span',{},money(it.priceCents,info.currency)+' ',h('small',{style:'display:inline'},T.per[it.priceMode]||'')))));
+ if(!item)return;
+ app.append(h('div',{cls:'lbl'},T.dates));
+ const busy=new Set(item.busy),today=new Date();const first=new Date(vy,vm,1),dim=new Date(vy,vm+1,0).getDate();
+ const mn=new Intl.DateTimeFormat(undefined,{month:'long',year:'numeric'}).format(first);
+ app.append(h('div',{cls:'mh'},h('button',{on:{click:()=>{vm--;if(vm<0){vm=11;vy--}render()}}},'‹'),mn,h('button',{on:{click:()=>{vm++;if(vm>11){vm=0;vy++}render()}}},'›')));
+ const g=h('div',{cls:'g'});const wd=new Intl.DateTimeFormat(undefined,{weekday:'narrow'});for(let i=0;i<7;i++)g.append(h('span',{},wd.format(new Date(2024,0,7+i))));
+ for(let i=0;i<first.getDay();i++)g.append(h('i'));
+ const t0=iso(today.getFullYear(),today.getMonth(),today.getDate());
+ for(let d=1;d<=dim;d++){const k=iso(vy,vm,d);const dis=busy.has(k)||k<t0;
+  const cls='d'+((k===a||k===b)?' s':(a&&b&&k>a&&k<b)?' r':'');
+  g.append(h('button',{cls,disabled:dis?'':null,on:{click:()=>pick(k)}},String(d)))}
+ app.append(g);
+ const n=a?Math.round(((b||a)?(new Date((b||a)+'T00:00')-new Date(a+'T00:00')):0)/864e5)+1:0;
+ const price=item.priceMode==='per_day'?item.priceCents*n:item.priceCents;
+ app.append(h('div',{cls:'sum'},h('span',{},a?`${n} ${n===1?T.day:T.days} · ${T.est}`:''),h('b',{},a?money(price,info.currency):'')));
+ if(!a)return;
+ app.append(h('div',{cls:'lbl'},T.you));
+ const nm=h('input',{placeholder:T.name,maxlength:'120',autocomplete:'name'}),ph=h('input',{placeholder:T.phone,maxlength:'20',inputmode:'tel',autocomplete:'tel'}),nt=h('textarea',{placeholder:T.note,maxlength:'500',rows:'2'}),hp=h('input',{cls:'hp',tabindex:'-1',autocomplete:'off',name:'website'});
+ const msg=h('div',{cls:'msg'});const btn=h('button',{cls:'btn'},T.send);
+ btn.onclick=async()=>{msg.textContent='';if(hp.value)return;if(!nm.value.trim()||ph.value.replace(/\D/g,'').length<6){msg.textContent=T.err;return}
+  btn.disabled=true;const r=await rpc('submit_booking_request',{p_slug:slug,p_item_id:item.id,p_start:a,p_end:b||a,p_name:nm.value,p_phone:ph.value,p_note:nt.value||null});
+  if(r.ok){done()}else{btn.disabled=false;const m=(r.j&&r.j.message)||'';msg.textContent=m.includes('unavailable')?T.unavail:m.includes('rate')?T.rate:T.err}};
+ app.append(nm,ph,nt,hp,btn,msg)}
+function pick(k){if(!a||b){a=k;b=null}else{let x=a,y=k;if(y<x)[x,y]=[y,x];let ok=true;for(let d=new Date(x+'T00:00');d<=new Date(y+'T00:00');d.setDate(d.getDate()+1)){if(item.busy.includes(iso(d.getFullYear(),d.getMonth(),d.getDate())))ok=false}if(ok&&(new Date(y)-new Date(x))/864e5<=30){a=x;b=y}else{a=k;b=null}}render()}
+function done(){app.replaceChildren(h('div',{cls:'done'},h('div',{cls:'ring'},'✓'),h('h1',{},T.okT),h('div',{cls:'sub',style:'margin:8px 0 22px'},T.okS),info.whatsapp?h('a',{cls:'btn',href:'https://wa.me/'+info.whatsapp,rel:'noopener'},T.wa):''))}
+(async()=>{if(!/^[a-z0-9-]{3,40}$/i.test(slug)){app.textContent=T.nf;return}
+ const r=await rpc('public_page_info',{p_slug:slug});if(!r.ok||!r.j){app.replaceChildren(h('div',{cls:'sub'},T.nf));return}
+ info=r.j;document.title=info.name;const n=new Date();vy=n.getFullYear();vm=n.getMonth();render()})();
+</script></body></html>
