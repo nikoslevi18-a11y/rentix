@@ -1,66 +1,211 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex"><title>Book</title>
+<meta name="robots" content="noindex"><meta name="color-scheme" content="light dark"><title>Book</title>
 <style>
-:root{--bg:#F6F4F1;--card:#FDFCFA;--ink:#141416;--mute:#8A8790;--line:#E6E2DD;--acc:#7A2E4D;--ok:#2E6B4F;--bad:#9C3F4B}
+:root{--bg:#F6F4F1;--card:#FDFCFA;--ink:#141416;--mute:#8A8790;--line:#E6E2DD;--acc:#7A2E4D;--ok:#2E6B4F;--bad:#9C3F4B;--ff:-apple-system,"SF Pro Text",Inter,"Segoe UI",Roboto,sans-serif}
 @media(prefers-color-scheme:dark){:root{--bg:#0C0C0E;--card:#151517;--ink:#F4F2EE;--mute:#8B8891;--line:#26252A;--acc:#D98BAA;--ok:#7FC3A0;--bad:#E89AA3}}
-*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,"SF Pro Text",Inter,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
-main{max-width:480px;margin:0 auto;padding:28px 20px 60px}
-h1{font-size:28px;font-weight:600;letter-spacing:-.8px}.sub{color:var(--mute);margin-top:4px;font-size:14px}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font:15px/1.45 var(--ff);-webkit-font-smoothing:antialiased}
+button,input,textarea{font-family:inherit}
+main{max-width:480px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:28px;font-weight:600;letter-spacing:-.8px;overflow-wrap:anywhere}.sub{color:var(--mute);margin-top:4px;font-size:14px}
 .lbl{font-size:12px;color:var(--mute);font-weight:500;margin:22px 0 8px}
-.item{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:14px;margin-bottom:8px;font:inherit;cursor:pointer}
-.item.on{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}.item b{font-weight:600}.item small{color:var(--mute);display:block}
-.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600}.mh button{background:none;border:0;color:var(--ink);font-size:22px;padding:4px 12px;cursor:pointer}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:52px;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:14px;margin-bottom:8px;font:inherit;cursor:pointer}
+.item>span:last-child{text-align:right;white-space:nowrap}
+.item.on{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}.item b{font-weight:600;overflow-wrap:anywhere}.item small{color:var(--mute);display:block}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600}
+.ic{min-width:44px;height:44px;background:none;border:0;color:var(--ink);font-size:22px;line-height:1;border-radius:12px;cursor:pointer}.ic:disabled{opacity:.25;cursor:default}
 .g{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}.g span{font-size:11px;color:var(--mute);padding-bottom:6px}
-.d{height:40px;border:0;background:none;color:var(--ink);font:inherit;font-variant-numeric:tabular-nums;cursor:pointer;border-radius:11px}
-.d:disabled{color:var(--mute);opacity:.4;text-decoration:line-through;cursor:default}.d.s{background:var(--ink);color:var(--bg);font-weight:600}.d.r{background:color-mix(in srgb,var(--ink) 9%,transparent);border-radius:0}
-input,textarea{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:13px;padding:13px;font:inherit;margin-bottom:10px}
-.btn{width:100%;height:52px;border:0;border-radius:15px;background:var(--ink);color:var(--bg);font:600 15px inherit;cursor:pointer;margin-top:8px}.btn:disabled{opacity:.35}
-.sum{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;color:var(--mute)}.sum b{font-size:24px;color:var(--ink);letter-spacing:-.5px}
-.msg{margin-top:12px;color:var(--bad);font-size:13px}.done{text-align:center;padding-top:60px}.ring{width:84px;height:84px;margin:0 auto 18px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:40px;color:var(--acc)}
-a.btn{display:grid;place-items:center;text-decoration:none}.hp{position:absolute;left:-9999px}
-</style></head><body><main id="app"><div class="sub">…</div></main>
+.d{height:44px;min-width:0;border:0;background:none;color:var(--ink);font:inherit;font-variant-numeric:tabular-nums;cursor:pointer;border-radius:11px}
+.d:disabled{color:var(--mute);opacity:.4;cursor:default}.d.bz:disabled{text-decoration:line-through}.d.s{background:var(--ink);color:var(--bg);font-weight:600}.d.r{background:color-mix(in srgb,var(--ink) 9%,transparent);border-radius:0}
+input,textarea{width:100%;min-height:48px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:13px;padding:13px;font:inherit;font-size:16px}
+input[aria-invalid=true]{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+.f{margin-bottom:10px}.fe{color:var(--bad);font-size:13px;margin-top:5px}.fe:empty{display:none}
+.btn{width:100%;height:52px;border:0;border-radius:15px;background:var(--ink);color:var(--bg);font-family:inherit;font-size:15px;font-weight:600;line-height:1;cursor:pointer;margin-top:8px}.btn:disabled{opacity:.35;cursor:default}
+.btn.sec{background:none;color:var(--ink);border:1px solid var(--line)}
+.sum{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:18px;color:var(--mute)}.sum b{font-size:24px;color:var(--ink);letter-spacing:-.5px}
+.qty{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);background:var(--card);border-radius:13px;padding:2px 4px 2px 14px;margin-bottom:10px}
+.qty .st{display:flex;align-items:center;gap:2px}.qty output{min-width:28px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+.msg{margin-top:12px;color:var(--bad);font-size:13px}.msg:empty{display:none}.note{color:var(--mute);font-size:13px;margin:4px 0 10px}
+.done{text-align:center;padding-top:60px}.ring{width:84px;height:84px;margin:0 auto 18px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:40px;color:var(--acc)}
+.state{padding-top:40px}.state .btn{margin-top:18px}
+a.btn{display:grid;place-items:center;text-decoration:none}.hp{position:absolute;left:-9999px;width:1px;height:1px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}input:focus-visible,textarea:focus-visible{outline-offset:0}
+[hidden]{display:none!important}
+@media(prefers-reduced-motion:no-preference){.item,.d,.btn{transition:background-color .15s,border-color .15s,box-shadow .15s}}
+</style></head><body><main id="app"><div class="sub" role="status">…</div></main>
 <script>
+'use strict';
 const URL_='https://cnpsenhexwsfrekflqfm.supabase.co',KEY='sb_publishable_PQKgTIY-VHNIYGNPIOz8VQ_69tJZrZw';
-const es=(navigator.language||'en').toLowerCase().startsWith('es');
-const T=es?{pick:'Elige un artículo',dates:'Elige las fechas',you:'Tus datos',name:'Nombre',phone:'Teléfono / WhatsApp',note:'Nota (opcional)',send:'Enviar solicitud',day:'día',days:'días',est:'Estimado',unavail:'Esas fechas ya no están disponibles.',err:'No se pudo enviar. Intenta de nuevo.',rate:'Demasiadas solicitudes. Intenta más tarde.',okT:'Solicitud enviada',okS:'Te contactarán para confirmar. No es una reserva hasta que el negocio la acepte.',wa:'Escribir por WhatsApp',nf:'Página no disponible',per:{per_day:'por día',per_event:'por evento'},free:'libre',busy:'ocupado'}
-:{pick:'Choose an item',dates:'Choose your dates',you:'Your details',name:'Name',phone:'Phone / WhatsApp',note:'Note (optional)',send:'Send request',day:'day',days:'days',est:'Estimate',unavail:'Those dates are no longer available.',err:'Could not send. Please try again.',rate:'Too many requests. Try again later.',okT:'Request sent',okS:'The business will contact you to confirm. This is not a booking until they accept.',wa:'Message on WhatsApp',nf:'Page not available',per:{per_day:'per day',per_event:'per event'},free:'free',busy:'busy'};
-const slug=new URLSearchParams(location.search).get('b')||'';const app=document.getElementById('app');
-const h=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(x==='on')for(const[ev,f]of Object.entries(v))e.addEventListener(ev,f);else if(x==='cls')e.className=v;else if(v!==null)e.setAttribute(x,v)}for(const c of k.flat())e.append(c);return e};
-const rpc=async(fn,body)=>{const r=await fetch(`${URL_}/rest/v1/rpc/${fn}`,{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json().catch(()=>null);return{ok:r.ok,j}};
-const money=(c,cur)=>{try{return new Intl.NumberFormat(undefined,{style:'currency',currency:cur,maximumFractionDigits:c%100?2:0}).format(c/100)}catch{return(c/100)+' '+cur}};
-const iso=(y,m,d)=>`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-let info,item=null,a=null,b=null,vy,vm,sent=false;
-function render(){app.replaceChildren();
- app.append(h('h1',{},info.name),info.headline?h('div',{cls:'sub'},info.headline):'');
- app.append(h('div',{cls:'lbl'},T.pick));
- info.items.forEach(it=>app.append(h('button',{cls:'item'+(item&&item.id===it.id?' on':''),on:{click:()=>{item=it;a=b=null;render()}}},h('span',{},h('b',{},it.name),it.category?h('small',{},it.category):''),h('span',{},money(it.priceCents,info.currency)+' ',h('small',{style:'display:inline'},T.per[it.priceMode]||'')))));
- if(!item)return;
- app.append(h('div',{cls:'lbl'},T.dates));
- const busy=new Set(item.busy),today=new Date();const first=new Date(vy,vm,1),dim=new Date(vy,vm+1,0).getDate();
- const mn=new Intl.DateTimeFormat(undefined,{month:'long',year:'numeric'}).format(first);
- app.append(h('div',{cls:'mh'},h('button',{on:{click:()=>{vm--;if(vm<0){vm=11;vy--}render()}}},'‹'),mn,h('button',{on:{click:()=>{vm++;if(vm>11){vm=0;vy++}render()}}},'›')));
- const g=h('div',{cls:'g'});const wd=new Intl.DateTimeFormat(undefined,{weekday:'narrow'});for(let i=0;i<7;i++)g.append(h('span',{},wd.format(new Date(2024,0,7+i))));
- for(let i=0;i<first.getDay();i++)g.append(h('i'));
- const t0=iso(today.getFullYear(),today.getMonth(),today.getDate());
- for(let d=1;d<=dim;d++){const k=iso(vy,vm,d);const dis=busy.has(k)||k<t0;
-  const cls='d'+((k===a||k===b)?' s':(a&&b&&k>a&&k<b)?' r':'');
-  g.append(h('button',{cls,disabled:dis?'':null,on:{click:()=>pick(k)}},String(d)))}
- app.append(g);
- const n=a?Math.round(((b||a)?(new Date((b||a)+'T00:00')-new Date(a+'T00:00')):0)/864e5)+1:0;
- const price=item.priceMode==='per_day'?item.priceCents*n:item.priceCents;
- app.append(h('div',{cls:'sum'},h('span',{},a?`${n} ${n===1?T.day:T.days} · ${T.est}`:''),h('b',{},a?money(price,info.currency):'')));
- if(!a)return;
- app.append(h('div',{cls:'lbl'},T.you));
- const nm=h('input',{placeholder:T.name,maxlength:'120',autocomplete:'name'}),ph=h('input',{placeholder:T.phone,maxlength:'20',inputmode:'tel',autocomplete:'tel'}),nt=h('textarea',{placeholder:T.note,maxlength:'500',rows:'2'}),hp=h('input',{cls:'hp',tabindex:'-1',autocomplete:'off',name:'website'});
- const msg=h('div',{cls:'msg'});const btn=h('button',{cls:'btn'},T.send);
- btn.onclick=async()=>{msg.textContent='';if(hp.value)return;if(!nm.value.trim()||ph.value.replace(/\D/g,'').length<6){msg.textContent=T.err;return}
-  btn.disabled=true;const r=await rpc('submit_booking_request',{p_slug:slug,p_item_id:item.id,p_start:a,p_end:b||a,p_name:nm.value,p_phone:ph.value,p_note:nt.value||null});
-  if(r.ok){done()}else{btn.disabled=false;const m=(r.j&&r.j.message)||'';msg.textContent=m.includes('unavailable')?T.unavail:m.includes('rate')?T.rate:T.err}};
- app.append(nm,ph,nt,hp,btn,msg)}
-function pick(k){if(!a||b){a=k;b=null}else{let x=a,y=k;if(y<x)[x,y]=[y,x];let ok=true;for(let d=new Date(x+'T00:00');d<=new Date(y+'T00:00');d.setDate(d.getDate()+1)){if(item.busy.includes(iso(d.getFullYear(),d.getMonth(),d.getDate())))ok=false}if(ok&&(new Date(y)-new Date(x))/864e5<=30){a=x;b=y}else{a=k;b=null}}render()}
-function done(){app.replaceChildren(h('div',{cls:'done'},h('div',{cls:'ring'},'✓'),h('h1',{},T.okT),h('div',{cls:'sub',style:'margin:8px 0 22px'},T.okS),info.whatsapp?h('a',{cls:'btn',href:'https://wa.me/'+info.whatsapp,rel:'noopener'},T.wa):''))}
-(async()=>{if(!/^[a-z0-9-]{3,40}$/i.test(slug)){app.textContent=T.nf;return}
- const r=await rpc('public_page_info',{p_slug:slug});if(!r.ok||!r.j){app.replaceChildren(h('div',{cls:'sub'},T.nf));return}
- info=r.j;document.title=info.name;const n=new Date();vy=n.getFullYear();vm=n.getMonth();render()})();
+const TIMEOUT_MS=12000,MAX_AHEAD=365,MAX_SPAN=30,QMAX=10,SEARCH_FROM=8;
+const D={
+es:{pick:'Elige un artículo',dates:'Elige las fechas',you:'Tus datos',name:'Nombre',phone:'Teléfono / WhatsApp',note:'Nota (opcional)',send:'Enviar solicitud',sending:'Enviando…',day:'día',days:'días',est:'Estimado',
+ unavail:'Alguien acaba de reservar esas fechas. Elige otras.',err:'No se pudo enviar. Intenta de nuevo.',rate:'Se recibieron demasiadas solicitudes. Intenta más tarde o escribe al negocio.',
+ nameReq:'Escribe tu nombre.',phoneReq:'Escribe un teléfono válido (al menos 6 dígitos).',invalid:'Revisa tu nombre y teléfono.',badDates:'Esas fechas no se pueden reservar. Elige fechas entre hoy y dentro de un año.',
+ itemGone:'Este artículo ya no está disponible. Elige otro.',pageGone:'Esta página de reservas ya no está activa.',net:'Sin conexión o el servidor no responde. Revisa tu internet e intenta de nuevo.',
+ loadErr:'No se pudo cargar la página.',retry:'Reintentar',loading:'Cargando…',
+ okT:'Solicitud enviada',okS:'Te contactarán para confirmar. No es una reserva hasta que el negocio la acepte.',wa:'Escribir por WhatsApp',again:'Enviar otra solicitud',
+ nf:'Esta página de reservas no está activa. Contacta directamente al negocio.',hint:'Toca el primer día y luego el último.',sel1:'Ahora toca el último día (o envía solo ese día).',
+ per:{per_day:'por día',per_event:'por evento'},free:'libre',busy:'ocupado',prev:'Mes anterior',next:'Mes siguiente',qty:'Cantidad',less:'Menos',more:'Más',
+ search:'Buscar artículo',noRes:'No hay artículos con ese nombre.',moreItems:'Se muestran solo algunos artículos. Si no ves el que buscas, escribe al negocio.',selected:'seleccionado',unavailDay:'no disponible'},
+en:{pick:'Choose an item',dates:'Choose your dates',you:'Your details',name:'Name',phone:'Phone / WhatsApp',note:'Note (optional)',send:'Send request',sending:'Sending…',day:'day',days:'days',est:'Estimate',
+ unavail:'Someone just booked those dates. Please pick others.',err:'Could not send. Please try again.',rate:'Too many requests right now. Try again later or message the business.',
+ nameReq:'Please enter your name.',phoneReq:'Please enter a valid phone number (at least 6 digits).',invalid:'Please check your name and phone.',badDates:'Those dates can’t be booked. Pick dates between today and one year from now.',
+ itemGone:'This item is no longer available. Please choose another.',pageGone:'This booking page is no longer active.',net:'No connection or the server isn’t responding. Check your internet and try again.',
+ loadErr:'Could not load this page.',retry:'Try again',loading:'Loading…',
+ okT:'Request sent',okS:'The business will contact you to confirm. This is not a booking until they accept.',wa:'Message on WhatsApp',again:'Send another request',
+ nf:'This booking page is not active. Please contact the business directly.',hint:'Tap the first day, then the last day.',sel1:'Now tap the last day (or send just this day).',
+ per:{per_day:'per day',per_event:'per event'},free:'free',busy:'busy',prev:'Previous month',next:'Next month',qty:'Quantity',less:'Fewer',more:'More',
+ search:'Search items',noRes:'No items match that search.',moreItems:'Only some items are shown. If you don’t see yours, message the business.',selected:'selected',unavailDay:'unavailable'},
+pt:{pick:'Escolha um item',dates:'Escolha as datas',you:'Seus dados',name:'Nome',phone:'Telefone / WhatsApp',note:'Observação (opcional)',send:'Enviar pedido',sending:'Enviando…',day:'dia',days:'dias',est:'Estimativa',
+ unavail:'Alguém acabou de reservar essas datas. Escolha outras.',err:'Não foi possível enviar. Tente de novo.',rate:'Muitos pedidos agora. Tente mais tarde ou fale com a loja.',
+ nameReq:'Digite seu nome.',phoneReq:'Digite um telefone válido (pelo menos 6 dígitos).',invalid:'Confira seu nome e telefone.',badDates:'Essas datas não podem ser reservadas. Escolha entre hoje e daqui a um ano.',
+ itemGone:'Este item não está mais disponível. Escolha outro.',pageGone:'Esta página de reservas não está mais ativa.',net:'Sem conexão ou o servidor não responde. Verifique sua internet e tente de novo.',
+ loadErr:'Não foi possível carregar a página.',retry:'Tentar de novo',loading:'Carregando…',
+ okT:'Pedido enviado',okS:'A loja vai entrar em contato para confirmar. Não é uma reserva até que ela aceite.',wa:'Falar no WhatsApp',again:'Enviar outro pedido',
+ nf:'Esta página de reservas não está ativa. Fale diretamente com a loja.',hint:'Toque no primeiro dia e depois no último.',sel1:'Agora toque no último dia (ou envie só este dia).',
+ per:{per_day:'por dia',per_event:'por evento'},free:'livre',busy:'ocupado',prev:'Mês anterior',next:'Próximo mês',qty:'Quantidade',less:'Menos',more:'Mais',
+ search:'Buscar item',noRes:'Nenhum item com esse nome.',moreItems:'Só alguns itens aparecem. Se não encontrar o seu, fale com a loja.',selected:'selecionado',unavailDay:'indisponível'}};
+const qs=new URLSearchParams(location.search);
+const LANG=(()=>{const c=[qs.get('lang'),...(navigator.languages||[]),navigator.language].filter(Boolean).map(x=>String(x).toLowerCase().slice(0,2));return c.find(x=>D[x])||'en'})();
+const T=D[LANG];document.documentElement.lang=LANG;
+const slug=qs.get('b')||'';const app=document.getElementById('app');
+// Safe element builder: text is only ever added via append() (text nodes), never innerHTML.
+const h=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(x==='on')for(const[ev,f]of Object.entries(v))e.addEventListener(ev,f);else if(x==='cls')e.className=v;else if(v!==null&&v!==undefined&&v!==false)e.setAttribute(x,v===true?'':v)}for(const c of k.flat())if(c!==null&&c!==undefined&&c!=='')e.append(c);return e};
+// RPC with a hard timeout. Resolves {ok,status,j} or {net:true} on network failure/timeout; never throws.
+const rpc=async(fn,body)=>{const ac=new AbortController();const tm=setTimeout(()=>ac.abort(),TIMEOUT_MS);
+ try{const r=await fetch(`${URL_}/rest/v1/rpc/${fn}`,{method:'POST',signal:ac.signal,headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const j=await r.json().catch(()=>null);return{ok:r.ok,status:r.status,j}}catch(e){return{net:true}}finally{clearTimeout(tm)}};
+const money=(c,cur)=>{try{return new Intl.NumberFormat(undefined,{style:'currency',currency:cur,maximumFractionDigits:c%100?2:0}).format(c/100)}catch{return(c/100)+' '+(cur||'')}};
+// All calendar dates are plain YYYY-MM-DD strings handled in UTC so the visitor's own time zone never shifts them.
+const iso=(y,m,d)=>{const x=new Date(Date.UTC(y,m,d));return x.toISOString().slice(0,10)};
+const addDays=(k,n)=>{const x=new Date(k+'T00:00:00Z');x.setUTCDate(x.getUTCDate()+n);return x.toISOString().slice(0,10)};
+const diffDays=(a,b)=>Math.round((Date.parse(b+'T00:00:00Z')-Date.parse(a+'T00:00:00Z'))/864e5);
+const ISO_RE=/^\d{4}-\d{2}-\d{2}$/;
+// "Today" as the server sees it: data.today if sent, else today in the business time zone, else the visitor's local date.
+function bizToday(d){if(d&&typeof d.today==='string'&&ISO_RE.test(d.today))return d.today;
+ const n=new Date();if(d&&d.tz){try{const p=new Intl.DateTimeFormat('en-US',{timeZone:d.tz,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(n);const g=t=>(p.find(x=>x.type===t)||{}).value;const s=`${g('year')}-${g('month')}-${g('day')}`;if(ISO_RE.test(s))return s}catch{}}
+ return iso(n.getFullYear(),n.getMonth(),n.getDate())}
+const norm=s=>String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+
+let info,item=null,a=null,b=null,qty=1,vy,vm,today,maxDay,query='',busy=new Set(),sending=false;
+// Persistent nodes: built once so typed values, focus and the search box survive every re-render.
+const N={};
+function build(){
+ N.head=h('div',{});N.list=h('div',{role:'group'});N.search=null;
+ if(info.items.length>SEARCH_FROM){N.search=h('input',{type:'search',placeholder:T.search,'aria-label':T.search,autocomplete:'off',enterkeyhint:'search',on:{input:e=>{query=e.target.value;renderList()}}});}
+ N.moreNote=info.more===true?h('div',{cls:'note',role:'note'},T.moreItems):null;
+ N.dates=h('section',{hidden:true});
+ N.nm=h('input',{id:'f-nm',placeholder:T.name,'aria-label':T.name,maxlength:'120',autocomplete:'name','aria-describedby':'e-nm'});
+ N.nmE=h('div',{cls:'fe',id:'e-nm','aria-live':'polite'});
+ N.ph=h('input',{id:'f-ph',type:'tel',placeholder:T.phone,'aria-label':T.phone,maxlength:'20',inputmode:'tel',autocomplete:'tel','aria-describedby':'e-ph'});
+ N.phE=h('div',{cls:'fe',id:'e-ph','aria-live':'polite'});
+ // 480 leaves room for the appended "Cantidad: N" line inside the server's 500-char note limit.
+ N.nt=h('textarea',{placeholder:T.note,'aria-label':T.note,maxlength:'480',rows:'2'});
+ N.hp=h('input',{cls:'hp',tabindex:'-1',autocomplete:'off',name:'website','aria-hidden':'true'});
+ N.nm.addEventListener('input',()=>clearErr(N.nm,N.nmE));N.ph.addEventListener('input',()=>clearErr(N.ph,N.phE));
+ N.qOut=h('output',{'aria-live':'polite'},'1');
+ N.qMinus=h('button',{type:'button',cls:'ic','aria-label':T.qty+': '+T.less,on:{click:()=>setQty(qty-1)}},'−');
+ N.qPlus=h('button',{type:'button',cls:'ic','aria-label':T.qty+': '+T.more,on:{click:()=>setQty(qty+1)}},'+');
+ N.qty=h('div',{cls:'qty',role:'group','aria-label':T.qty},h('span',{},T.qty),h('div',{cls:'st'},N.qMinus,N.qOut,N.qPlus));
+ N.btn=h('button',{type:'button',cls:'btn',on:{click:submit}},T.send);
+ N.msg=h('div',{cls:'msg',role:'alert'});
+ N.form=h('section',{hidden:true},h('div',{cls:'lbl'},T.you),N.qty,h('div',{cls:'f'},N.nm,N.nmE),h('div',{cls:'f'},N.ph,N.phE),h('div',{cls:'f'},N.nt),N.hp,N.btn,N.msg);
+ N.main=h('div',{},N.head,h('div',{cls:'lbl'},T.pick),N.search?h('div',{cls:'f'},N.search):null,N.moreNote,N.list,N.dates,N.form);
+}
+function renderHead(){N.head.replaceChildren(...[h('h1',{},String(info.name||'')),info.headline?h('div',{cls:'sub'},String(info.headline)):null].filter(Boolean))}
+function show(){app.replaceChildren(N.main)}
+function renderList(){const q=norm(query.trim());
+ const its=q?info.items.filter(it=>norm(it.name).includes(q)||norm(it.category).includes(q)):info.items;
+ N.list.replaceChildren(...its.map(it=>{const on=!!(item&&item.id===it.id);
+  return h('button',{type:'button',cls:'item'+(on?' on':''),'aria-pressed':on?'true':'false','data-id':String(it.id),on:{click:()=>selectItem(it)}},
+   h('span',{},h('b',{},String(it.name||'')),it.category?h('small',{},String(it.category)):null),
+   h('span',{},money(Number(it.priceCents)||0,info.currency)+' ',h('small',{style:'display:inline'},T.per[it.priceMode]||'')))}));
+ if(!its.length)N.list.append(h('div',{cls:'note'},T.noRes))}
+function selectItem(it){if(sending)return;const changed=!item||item.id!==it.id;item=it;if(changed){a=b=null}busy=new Set(Array.isArray(it.busy)?it.busy:[]);
+ for(const el of N.list.querySelectorAll('.item')){const on=el.getAttribute('data-id')===String(it.id);el.classList.toggle('on',on);el.setAttribute('aria-pressed',on?'true':'false')}
+ const wasHidden=N.dates.hidden;N.msg.textContent='';renderCal();renderForm();if(wasHidden)N.dates.scrollIntoView({behavior:'smooth',block:'start'})}
+const monthIdx=k=>+k.slice(0,4)*12+(+k.slice(5,7)-1);
+function dayDisabled(k){return k<today||k>maxDay||busy.has(k)}
+function renderCal(keepFocus){if(!item){N.dates.hidden=true;return}N.dates.hidden=false;
+ const fk=keepFocus&&document.activeElement&&document.activeElement.getAttribute('data-k');
+ const cur=vy*12+vm,minM=monthIdx(today),maxM=monthIdx(maxDay);
+ const mf=new Intl.DateTimeFormat(undefined,{month:'long',year:'numeric',timeZone:'UTC'});const fmt={format:d=>{const s=mf.format(d);return s.charAt(0).toUpperCase()+s.slice(1)}};
+ const prev=h('button',{type:'button',cls:'ic','aria-label':T.prev,disabled:cur<=minM,on:{click:()=>nav(-1)}},'‹');
+ const next=h('button',{type:'button',cls:'ic','aria-label':T.next,disabled:cur>=maxM,on:{click:()=>nav(1)}},'›');
+ const g=h('div',{cls:'g',role:'group','aria-label':fmt.format(new Date(Date.UTC(vy,vm,1)))});
+ const wd=new Intl.DateTimeFormat(undefined,{weekday:'narrow',timeZone:'UTC'});const wl=new Intl.DateTimeFormat(undefined,{weekday:'long',timeZone:'UTC'});
+ for(let i=0;i<7;i++){const dd=new Date(Date.UTC(2024,0,7+i));g.append(h('span',{'aria-hidden':'true'},wd.format(dd)))}
+ const firstDow=new Date(Date.UTC(vy,vm,1)).getUTCDay(),dim=new Date(Date.UTC(vy,vm+1,0)).getUTCDate();
+ for(let i=0;i<firstDow;i++)g.append(h('i',{'aria-hidden':'true'}));
+ const lf=new Intl.DateTimeFormat(undefined,{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
+ for(let d=1;d<=dim;d++){const k=iso(vy,vm,d),dis=dayDisabled(k),sel=k===a||k===b,isB=busy.has(k);
+  const cls='d'+(isB?' bz':'')+(sel?' s':(a&&b&&k>a&&k<b)?' r':'');
+  const lab=lf.format(new Date(k+'T00:00:00Z'))+(isB?' ('+T.busy+')':dis?' ('+T.unavailDay+')':'')+(sel?' ('+T.selected+')':'');
+  g.append(h('button',{type:'button',cls,'data-k':k,disabled:dis,'aria-label':lab,'aria-pressed':sel?'true':'false',on:{click:()=>pick(k)}},String(d)))}
+ const n=a?diffDays(a,b||a)+1:0;const pc=Number(item.priceCents)||0;const price=(item.priceMode==='per_day'?pc*n:pc)*qty;
+ N.dates.replaceChildren(h('div',{cls:'lbl'},T.dates),h('div',{cls:'sub',style:'margin:-4px 0 10px;font-size:13px'},a&&!b?T.sel1:T.hint),
+  h('div',{cls:'mh'},prev,h('span',{'aria-live':'polite'},fmt.format(new Date(Date.UTC(vy,vm,1)))),next),g,
+  h('div',{cls:'sum','aria-live':'polite'},h('span',{},a?`${n} ${n===1?T.day:T.days}${qty>1?' × '+qty:''} · ${T.est}`:''),h('b',{},a?money(price,info.currency):'')));
+ if(fk){const el=N.dates.querySelector(`[data-k="${fk}"]`);if(el)el.focus()}}
+function nav(dir){const cur=vy*12+vm+dir;if(cur<monthIdx(today)||cur>monthIdx(maxDay))return;vy=Math.floor(cur/12);vm=cur%12;renderCal();
+ const btn=N.dates.querySelector(dir<0?'.mh .ic:first-child':'.mh .ic:last-child');if(btn&&!btn.disabled)btn.focus();else{const o=N.dates.querySelector('.mh .ic:not(:disabled)');if(o)o.focus()}}
+function renderForm(){N.form.hidden=!a;N.qOut.textContent=String(qty);N.qMinus.disabled=qty<=1;N.qPlus.disabled=qty>=QMAX}
+function setQty(n){qty=Math.max(1,Math.min(QMAX,n));renderForm();renderCal()}
+function pick(k){if(sending||dayDisabled(k))return;
+ if(!a||b){a=k;b=null}else{let x=a,y=k;if(y<x)[x,y]=[y,x];let ok=diffDays(x,y)<=MAX_SPAN&&x>=today&&y<=maxDay;
+  for(let d=x;ok&&d<=y;d=addDays(d,1))if(busy.has(d))ok=false;
+  if(ok){a=x;b=y}else{a=k;b=null}}
+ N.msg.textContent='';renderCal(true);renderForm()}
+function setErr(inp,box,t){inp.setAttribute('aria-invalid','true');box.textContent=t}
+function clearErr(inp,box){inp.removeAttribute('aria-invalid');box.textContent=''}
+// Map the server's exception text (supabase/migrations/0007_public_booking.sql) to a message and where to show it.
+function serverError(r){if(r.net)return{t:T.net};const m=String((r.j&&(r.j.message||r.j.error))||'');
+ if(m.includes('invalid_dates'))return{t:T.badDates,dates:true};
+ if(m.includes('unavailable'))return{t:T.unavail,dates:true,reload:true};
+ if(m.includes('rate_limited'))return{t:T.rate};
+ if(m.includes('not_found'))return{t:T.itemGone,reload:true};
+ if(m.includes('invalid'))return{t:T.invalid,fields:true};
+ return{t:T.err}}
+async function submit(){if(sending)return;N.msg.textContent='';
+ if(N.hp.value){done();return}
+ const nm=N.nm.value.trim(),phd=N.ph.value.replace(/\D/g,'');let bad=null;
+ if(!nm){setErr(N.nm,N.nmE,T.nameReq);bad=bad||N.nm}else clearErr(N.nm,N.nmE);
+ if(phd.length<6||N.ph.value.replace(/[^0-9+]/g,'').length>20){setErr(N.ph,N.phE,T.phoneReq);bad=bad||N.ph}else clearErr(N.ph,N.phE);
+ if(bad){bad.focus();return}
+ if(!item||!a)return;
+ // The server has no quantity column, so the quantity travels inside the note as a plain "Cantidad: N" line for the owner.
+ const userNote=N.nt.value.trim();const note=[userNote,qty>1?'Cantidad: '+qty:''].filter(Boolean).join('\n').slice(0,500)||null;
+ sending=true;N.btn.disabled=true;N.btn.textContent=T.sending;N.btn.setAttribute('aria-busy','true');
+ let r;try{r=await rpc('submit_booking_request',{p_slug:slug,p_item_id:item.id,p_start:a,p_end:b||a,p_name:nm,p_phone:N.ph.value,p_note:note})}
+ finally{sending=false;N.btn.disabled=false;N.btn.textContent=T.send;N.btn.removeAttribute('aria-busy')}
+ if(r.ok){done();return}
+ const e=serverError(r);N.msg.textContent=e.t;
+ if(e.fields){setErr(N.nm,N.nmE,T.invalid);setErr(N.ph,N.phE,T.phoneReq);N.nm.focus()}
+ if(e.reload)refreshInfo(e.dates);
+ if(e.dates){a=b=null;renderCal();renderForm();N.dates.scrollIntoView({behavior:'smooth',block:'start'});N.dates.prepend(h('div',{cls:'msg',role:'alert'},e.t));N.msg.textContent=''}}
+// Re-fetch busy days quietly after 'unavailable'/'not_found' without losing what the customer typed.
+async function refreshInfo(keepMsg){const r=await rpc('public_page_info',{p_slug:slug});if(!r.ok||!r.j||!Array.isArray(r.j.items))return;
+ applyInfo(r.j);renderHead();const it=item&&info.items.find(x=>x.id===item.id);
+ if(it){item=it;busy=new Set(Array.isArray(it.busy)?it.busy:[])}else{item=null;a=b=null}
+ const m=keepMsg&&N.dates.querySelector(':scope>.msg');renderList();renderCal();if(m&&item)N.dates.prepend(m);renderForm()}
+function done(){const wa=info.whatsapp&&/^\d{6,15}$/.test(String(info.whatsapp))?String(info.whatsapp):'';
+ const again=h('button',{type:'button',cls:'btn'+(wa?' sec':''),on:{click:anotherRequest}},T.again);
+ app.replaceChildren(h('div',{cls:'done'},h('div',{cls:'ring','aria-hidden':'true'},'✓'),h('h1',{tabindex:'-1',id:'okT'},T.okT),h('div',{cls:'sub',style:'margin:8px 0 22px'},T.okS),
+  wa?h('a',{cls:'btn',href:'https://wa.me/'+wa,rel:'noopener',target:'_blank'},T.wa):null,again));
+ const t=document.getElementById('okT');if(t)t.focus();window.scrollTo(0,0)}
+// Keeps name and phone (same customer), clears the rest so they can ask for another item.
+function anotherRequest(){item=null;a=b=null;qty=1;N.nt.value='';N.msg.textContent='';query='';if(N.search)N.search.value='';
+ const cur=monthIdx(today);vy=Math.floor(cur/12);vm=cur%12;show();renderList();renderCal();renderForm();window.scrollTo(0,0);
+ const f=N.list.querySelector('.item');if(f)f.focus();refreshInfo(false)}
+function applyInfo(j){info=j;info.items=Array.isArray(j.items)?j.items:[];today=bizToday(j);maxDay=addDays(today,MAX_AHEAD)}
+function stateView(text,retry){const box=h('div',{cls:'state'},h('div',{cls:'sub',role:retry?'alert':'status'},text));
+ if(retry)box.append(h('button',{type:'button',cls:'btn',on:{click:load}},T.retry));app.replaceChildren(box);const bt=box.querySelector('button');if(bt)bt.focus()}
+async function load(){if(!/^[a-z0-9-]{3,40}$/i.test(slug)){stateView(T.nf);return}
+ stateView(T.loading);const r=await rpc('public_page_info',{p_slug:slug});
+ if(r.net||(!r.ok&&r.status>=500)||r.status===408||r.status===429){stateView(T.loadErr+' '+(r.net?T.net:''),true);return}
+ if(!r.ok||!r.j||typeof r.j!=='object'){stateView(T.nf);return}
+ applyInfo(r.j);document.title=String(info.name||'Book');const cur=monthIdx(today);vy=Math.floor(cur/12);vm=cur%12;
+ build();renderHead();renderList();show()}
+load();
 </script></body></html>
